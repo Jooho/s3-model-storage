@@ -27,7 +27,7 @@ build:
 
 .PHONY: push-%
 push-%:
-	$(ENGINE) tag $(BASE_IMG):$(TAGS_MAP_$*) $(BASE_IMG_MINIO):$(shell date +%Y%m%d)
+	$(ENGINE) tag $(BASE_IMG):$(TAGS_MAP_$*) $(BASE_IMG):$(shell date +%Y%m%d)
 	$(ENGINE) push $(BASE_IMG):$(shell date +%Y%m%d)
 	$(ENGINE) push $(BASE_IMG):$(TAGS_MAP_$*)
 # Default push (uses TAG)
