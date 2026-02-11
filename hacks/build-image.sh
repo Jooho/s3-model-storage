@@ -5,7 +5,8 @@ set -x
 ENGINE=$1
 FINAL_SEAWEEDFS_IMG=$2
 BUCKET_NAME=$3
-PLATFORMS=${4:-"linux/amd64,linux/arm64"}
+# PLATFORMS=${4:-"linux/amd64,linux/arm64"}
+PLATFORMS=${4:-"linux/amd64"}
 BASE_SEAWEEDFS_IMG="quay.io/jooholee/model-seaweedfs:copy"
 INTRIM_SEAWEEDFS_IMG="quay.io/jooholee/model-seaweedfs:intrim"
 CONTAINER_NAME="seaweedfs-setup-container"
@@ -38,4 +39,4 @@ $ENGINE rm $CONTAINER_NAME --force
 
 echo "Platforms: ${PLATFORMS}"
 $ENGINE buildx create --name multiarch-builder --driver docker-container --use 2>/dev/null || $ENGINE buildx use multiarch-builder
-$ENGINE buildx build --platform ${PLATFORMS} --push -f Dockerfile -t ${FINAL_SEAWEEDFS_IMG} .
+$ENGINE buildx build --no-cache --platform ${PLATFORMS} --load -f Dockerfile -t ${FINAL_SEAWEEDFS_IMG} .

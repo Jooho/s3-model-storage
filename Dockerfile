@@ -5,8 +5,8 @@ FROM chrislusf/seaweedfs:latest
 USER root
 
 # Copy data from runtime image
-COPY --from=runtime /data1 /data1
-RUN chmod -R 777 /data1
+RUN mkdir -p /data1 && chmod 777 /data1
+COPY --from=runtime /data1/ /data1/
 
 COPY ./hacks/start.sh /usr/bin/start.sh
 
